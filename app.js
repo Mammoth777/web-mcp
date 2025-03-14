@@ -24,13 +24,14 @@ const openai = new OpenAI({
     baseURL: "https://dashscope.aliyuncs.com/compatible-mode/v1"
 });
 const systemPrompt = toolsToSystemPrompt();
+const question = '常州下雨了吗'
 const completion = await openai.chat.completions.create({
     model: "qwen-plus",
     messages: [
       systemPrompt,
         {
             role: "user",
-            content: "常州下雨了吗"
+            content: question
         }
     ],
     response_format: {
@@ -39,4 +40,5 @@ const completion = await openai.chat.completions.create({
 });
 
 const jsonString = completion.choices[0].message.content
-console.log(jsonString);
+console.log(`Q: ${question}`)
+console.log(`A: ${jsonString}`);
