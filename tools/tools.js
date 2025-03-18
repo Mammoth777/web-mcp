@@ -50,9 +50,16 @@ export function toolsToSystemPrompt() {
     })
     return examples.join('\n')
   }).join('\n')
+
+  const defaultTool = {
+    name: 'unmatched',
+    params: []
+  }
+
+  const suffix = `\n\n 如果没有匹配到任何工具，请返回${json(defaultTool)}。`
   return {
     role: 'system',
-    content: prefix + toolsPrompt.join('') + example
+    content: prefix + toolsPrompt.join('') + example + suffix
   }
 }
 
